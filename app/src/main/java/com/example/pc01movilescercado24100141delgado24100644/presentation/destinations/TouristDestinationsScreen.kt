@@ -47,7 +47,7 @@ private val touristDestinations = listOf(
         country = "España",
         city = "Barcelona",
         averageCost = 1100.0,
-        imageUrl = "https://images.unsplash.com/photo-1464790719320-516ecd75af6f?auto=format&fit=crop&w=900&q=80"
+        imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBzxtK4SC0lTeL3eL0ET1ysLmsXqpgS_nGOw&s"
     ),
     Destination(
         country = "Japón",
