@@ -163,7 +163,7 @@ fun BudgetPlannerScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(onClick = { navController.popBackStack() }) {
-            Text("Volver al menú")
+            Text("Volver al menú principal")
         }
     }
 }

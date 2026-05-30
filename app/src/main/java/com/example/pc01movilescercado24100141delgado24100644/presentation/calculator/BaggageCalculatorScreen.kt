@@ -222,6 +222,13 @@ fun BaggageCalculatorScreen(navController: NavController) {
 
                 null -> Unit
             }
+
+            Button(
+                onClick = { navController.popBackStack() },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Volver al menú principal")
+            }
         }
     }
 }

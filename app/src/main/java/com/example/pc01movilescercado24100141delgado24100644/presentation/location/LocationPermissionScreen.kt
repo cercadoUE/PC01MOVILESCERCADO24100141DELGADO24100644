@@ -1,7 +1,6 @@
 package com.example.pc01movilescercado24100141delgado24100644.presentation.location
 
 import android.Manifest
-import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -20,26 +19,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
+
+private enum class PermissionStatus {
+    PENDING, GRANTED, DENIED
+}
 
 @Composable
 fun LocationPermissionScreen(navController: NavController) {
-    val context = LocalContext.current
-    var permissionGranted by remember { mutableStateOf(false) }
-
-    val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        Manifest.permission.ACCESS_FINE_LOCATION
-    } else {
-        Manifest.permission.ACCESS_FINE_LOCATION
-    }
+    var permissionStatus by remember { mutableStateOf(PermissionStatus.PENDING) }
 
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
-        permissionGranted = isGranted
+        permissionStatus = if (isGranted) PermissionStatus.GRANTED
+        else PermissionStatus.DENIED
     }
 
     Column(
@@ -52,24 +48,27 @@ fun LocationPermissionScreen(navController: NavController) {
             style = MaterialTheme.typography.titleLarge
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
         Text(
-            text = if (permissionGranted) "Permiso concedido"
-            else "Solicitar permiso de ubicación para asistencia de viaje",
-            style = MaterialTheme.typography.bodyLarge
+            text = when (permissionStatus) {
+                PermissionStatus.PENDING -> "Permiso pendiente de solicitud"
+                PermissionStatus.GRANTED -> "Permiso concedido"
+                PermissionStatus.DENIED -> "Permiso denegado"
+            },
+            style = MaterialTheme.typography.bodyLarge,
+            color = when (permissionStatus) {
+                PermissionStatus.GRANTED -> Color(0xFF4CAF50)
+                PermissionStatus.DENIED -> MaterialTheme.colorScheme.error
+                PermissionStatus.PENDING -> MaterialTheme.colorScheme.onSurface
+            }
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(32.dp))
 
         Button(
             onClick = {
-                val isGranted = ContextCompat.checkSelfPermission(context, permission)
-                if (isGranted == android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                    permissionGranted = true
-                } else {
-                    permissionLauncher.launch(permission)
-                }
+                permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             }
         ) {
             Text("Solicitar Permiso")
@@ -78,7 +77,7 @@ fun LocationPermissionScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(12.dp))
 
         Button(onClick = { navController.popBackStack() }) {
-            Text("Volver")
+            Text("Volver al menú principal")
         }
     }
 }

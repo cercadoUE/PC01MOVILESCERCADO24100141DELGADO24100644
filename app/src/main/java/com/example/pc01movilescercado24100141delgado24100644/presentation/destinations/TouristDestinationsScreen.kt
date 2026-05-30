@@ -88,7 +88,7 @@ fun TouristDestinationsScreen(navController: NavController) {
             onClick = { navController.popBackStack() },
             modifier = Modifier.padding(bottom = 12.dp)
         ) {
-            Text(text = "Volver")
+            Text("Volver al menú principal")
         }
 
         LazyColumn(

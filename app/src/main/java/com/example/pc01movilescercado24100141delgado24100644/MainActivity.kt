@@ -24,6 +24,10 @@ class MainActivity : ComponentActivity() {
                     ) {
                         //RegisterScreen()
                         AppNavGraph()
+
+                        //Integrantes
+                        // Jhony Cercado Atalaya - 24100141
+                        // Freddy Delgado Villanueva - 24100644
                     }
 
 
