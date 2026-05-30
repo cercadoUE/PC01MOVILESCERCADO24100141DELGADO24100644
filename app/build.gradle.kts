@@ -14,7 +14,7 @@ android {
     defaultConfig {
         applicationId = "com.example.pc01movilescercado24100141delgado24100644"
         minSdk = 33
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.navigation.runtime.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -57,4 +58,6 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     implementation("androidx.navigation:navigation-compose:2.9.8")
+    implementation("androidx.compose.material:material-icons-core")
+    implementation("androidx.compose.material:material-icons-extended")
 }
